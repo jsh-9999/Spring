@@ -24,7 +24,7 @@ public class MemberRepository {
     }
     public Member findById(Long id){
         return store.get(id);
-    }
+    } // get()은 키(id) 해당하는 멤버를 검색해서 찾아서 반환
 
 
     public List<Member> findAll(){

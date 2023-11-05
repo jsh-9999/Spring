@@ -31,7 +31,7 @@ public class FrontControllerServletV3 extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
-        ControllerV3 controller = controllerMap.get(requestURI);
+        ControllerV3 controller = controllerMap.get(requestURI); // controllerMap에서 requestURI를 키로 사용하여 해당 URL 경로에 대한 컨트롤러를 가져오는 작업을 수행합니다. 즉, requestURI에 해당하는 컨트롤러를 검색하려는 것입니다. 키는 3개 인데 대표적으로 "/front-controller/v3/members/new-form" 이거
 
         if(controller == null){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -40,6 +40,7 @@ public class FrontControllerServletV3 extends HttpServlet {
         //paramMap
         Map<String, String> paramMap = createParamMap(request);
         ModelView mv = controller.process(paramMap);
+
         String viewName = mv.getViewName();// 논리이름 new-form
 
         // /WEB-INF/views/new-form.jsp
@@ -48,12 +49,11 @@ public class FrontControllerServletV3 extends HttpServlet {
         view.render(mv.getModel(), request, response);
     }
 
-    private static MyView viewResolver(String viewName) {
-        MyView view = new MyView("/WEB-INF/views/" + viewName + ".jsp");
-        return view;
+    private MyView viewResolver(String viewName) {
+        return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
-    private static Map<String, String> createParamMap(HttpServletRequest request) {
+    private Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator().forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
         return paramMap;

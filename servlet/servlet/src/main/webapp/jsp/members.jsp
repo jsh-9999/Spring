@@ -24,7 +24,7 @@
     for (Member member : members) {
       out.write(" <tr>");
       out.write(" <td>" + member.getId() + "</td>");
-      out.write(" <td>" + member.getName() + "</td>");
+      out.write(" <td>" + member.getUsername() + "</td>");
       out.write(" <td>" + member.getAge() + "</td>");
       out.write(" </tr>");
     }
