@@ -38,7 +38,6 @@ public class MappingController {
 
 
     }
-
     /**
      * PathVariable 사용 다중
      */
